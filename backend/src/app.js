@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import contactRouter from "./routes/contact.js";
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.use(
     origin(origin, cb) {
       // Allow non-browser clients (curl, health checks) and listed origins
       if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) return cb(null, true);
-      cb(new Error("Not allowed by CORS"));
+      cb(null, false);
     },
   })
 );
@@ -26,5 +27,12 @@ app.use(express.json({ limit: "20kb" }));
 
 app.get("/", (_req, res) => res.json({ name: "portfolio-api", status: "ok" }));
 app.get("/api/health", (_req, res) => res.json({ status: "ok", uptime: process.uptime() }));
+app.use("/api/contact", contactRouter);
+
+app.use((_req, res) => res.status(404).json({ error: "Not found" }));
+app.use((err, _req, res, _next) => {
+  console.error(err);
+  res.status(err.status || 500).json({ error: err.status === 400 ? "Invalid request body." : "Server error" });
+});
 
 export default app;
