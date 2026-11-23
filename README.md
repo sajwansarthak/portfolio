@@ -37,8 +37,8 @@ If the API is unreachable the frontend falls back to opening the visitor's email
 1. Render dashboard → **New → Blueprint** → connect this repo (it reads `render.yaml`).
 2. Fill in the environment variables:
    - `MONGODB_URI` — MongoDB Atlas connection string (allow access from `0.0.0.0/0` in Atlas Network Access)
-   - `SMTP_USER` / `SMTP_PASS` — Gmail address + [App Password](https://myaccount.google.com/apppasswords)
-   - `CONTACT_TO` — where messages are delivered
+   - `RESEND_API_KEY` — from [resend.com/api-keys](https://resend.com/api-keys) (email alerts)
+   - `CONTACT_TO` — inbox for alerts (must be your Resend login email unless you verify a domain)
    - `ALLOWED_ORIGINS` — your Vercel URL (set after step 2)
 3. Check `https://<service>.onrender.com/api/health` returns `{"status":"ok"}`.
 

@@ -17,9 +17,7 @@ services:
         sync: false   # e.g. https://sarthak-portfolio.vercel.app
       - key: MONGODB_URI
         sync: false
-      - key: SMTP_USER
-        sync: false
-      - key: SMTP_PASS
-        sync: false
+      - key: RESEND_API_KEY
+        sync: false   # email alerts via Resend (https://resend.com/api-keys)
       - key: CONTACT_TO
-        sync: false
+        sync: false   # inbox that receives alerts
