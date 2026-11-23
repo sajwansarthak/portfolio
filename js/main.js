@@ -41,3 +41,23 @@ const navbar = document.getElementById("navbar");
 window.addEventListener("scroll", () => {
   navbar.classList.toggle("scrolled", window.scrollY > 10);
 }, { passive: true });
+
+// ---------- Typing effect ----------
+const roles = ["Software Developer", "DevOps Engineer", "Cloud & Kubernetes Enthusiast", "MERN Stack Developer"];
+const typedEl = document.getElementById("typed");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (reduceMotion) {
+  typedEl.textContent = roles[0];
+} else {
+  let roleIdx = 0, charIdx = 0, deleting = false;
+  (function tick() {
+    const word = roles[roleIdx];
+    charIdx += deleting ? -1 : 1;
+    typedEl.textContent = word.slice(0, charIdx);
+    let delay = deleting ? 45 : 90;
+    if (!deleting && charIdx === word.length) { deleting = true; delay = 1600; }
+    else if (deleting && charIdx === 0) { deleting = false; roleIdx = (roleIdx + 1) % roles.length; delay = 300; }
+    setTimeout(tick, delay);
+  })();
+}
