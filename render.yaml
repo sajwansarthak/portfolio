@@ -1,0 +1,25 @@
+# Render Blueprint — deploys the backend API.
+# Render dashboard → New → Blueprint → select this repo.
+services:
+  - type: web
+    name: sarthak-portfolio-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: ALLOWED_ORIGINS
+        sync: false   # e.g. https://sarthak-portfolio.vercel.app
+      - key: MONGODB_URI
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: CONTACT_TO
+        sync: false
