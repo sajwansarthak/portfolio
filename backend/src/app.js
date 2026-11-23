@@ -9,7 +9,7 @@ const app = express();
 // e.g. "https://sarthak-portfolio.vercel.app,http://localhost:8000"
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || "")
   .split(",")
-  .map((o) => o.trim())
+  .map((o) => o.trim().replace(/\/+$/, "")) // tolerate "https://site.app/"
   .filter(Boolean);
 
 app.set("trust proxy", 1); // Render sits behind a proxy
