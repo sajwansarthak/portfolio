@@ -36,7 +36,6 @@ router.post("/", limiter, async (req, res) => {
   if (errors.length) return res.status(400).json({ error: errors.join(" ") });
 
   let stored = false;
-  let emailed = false;
 
   if (isDBConnected()) {
     try {
@@ -47,16 +46,21 @@ router.post("/", limiter, async (req, res) => {
     }
   }
 
+  // Once the message is safely stored, reply immediately and send the email
+  // notification in the background so a slow/blocked SMTP server never delays the user.
+  if (stored) {
+    res.status(201).json({ ok: true });
+    sendContactEmail(data).catch((err) => console.error("Failed to send email:", err.message));
+    return;
+  }
+
+  // No database: email is the only delivery path, so wait for it.
   try {
-    emailed = await sendContactEmail(data);
+    if (await sendContactEmail(data)) return res.status(201).json({ ok: true });
   } catch (err) {
     console.error("Failed to send email:", err.message);
   }
-
-  if (!stored && !emailed) {
-    return res.status(503).json({ error: "Message could not be delivered right now. Please email me directly." });
-  }
-  res.status(201).json({ ok: true });
+  res.status(503).json({ error: "Message could not be delivered right now. Please email me directly." });
 });
 
 export default router;
