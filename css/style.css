@@ -424,3 +424,13 @@ section:nth-of-type(even) .chips span { background: var(--bg); }
 @media (max-width: 820px) {
   .contact-grid { grid-template-columns: 1fr; }
 }
+
+/* ---------- Scroll reveal (only when JS is running) ---------- */
+.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.js .reveal.visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .cursor { animation: none; }
+}

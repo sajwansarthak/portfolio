@@ -101,3 +101,33 @@ copyBtn.addEventListener("click", async () => {
 
 // ---------- Footer year ----------
 document.getElementById("year").textContent = new Date().getFullYear();
+
+// ---------- Scroll reveal ----------
+const revealEls = document.querySelectorAll(".reveal");
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+  revealEls.forEach((el) => io.observe(el));
+} else {
+  revealEls.forEach((el) => el.classList.add("visible"));
+}
+
+// ---------- Active nav link ----------
+const sections = document.querySelectorAll("main section[id]");
+const navAnchors = document.querySelectorAll(".nav-links a");
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      navAnchors.forEach((a) =>
+        a.classList.toggle("active", a.getAttribute("href") === `#${entry.target.id}`)
+      );
+    }
+  });
+}, { rootMargin: "-45% 0px -50% 0px" });
+sections.forEach((s) => sectionObserver.observe(s));
