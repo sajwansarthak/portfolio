@@ -61,3 +61,18 @@ if (reduceMotion) {
     setTimeout(tick, delay);
   })();
 }
+
+// ---------- Project filters ----------
+const filterBtns = document.querySelectorAll(".filter");
+const projectCards = document.querySelectorAll(".project-card");
+
+filterBtns.forEach((btn) =>
+  btn.addEventListener("click", () => {
+    filterBtns.forEach((b) => b.classList.toggle("active", b === btn));
+    const f = btn.dataset.filter;
+    projectCards.forEach((card) => {
+      const cats = card.dataset.category.split(" ");
+      card.classList.toggle("hidden", f !== "all" && !cats.includes(f));
+    });
+  })
+);

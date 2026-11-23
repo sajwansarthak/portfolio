@@ -135,6 +135,129 @@ open-to-work      <span class="t-ok">Running</span></pre>
       </div>
     </section>
 
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title reveal">Projects</h2>
+        <p class="section-sub reveal">Full-stack apps and cloud-native deployments I've built.</p>
+
+        <div class="filters reveal" role="tablist" aria-label="Filter projects">
+          <button class="filter active" data-filter="all">All</button>
+          <button class="filter" data-filter="fullstack">Full Stack</button>
+          <button class="filter" data-filter="devops">DevOps / Cloud</button>
+          <button class="filter" data-filter="ai">AI</button>
+        </div>
+
+        <div class="projects-grid">
+          <!-- LMS -->
+          <article class="project-card reveal" data-category="fullstack">
+            <div class="project-banner banner-lms"><span class="mono">LMS</span></div>
+            <div class="project-body">
+              <h3>Learning Management System</h3>
+              <p>
+                A full-stack LMS where educators create and manage courses and students browse, buy and
+                watch them. Role-based access (Educator vs Student) via Clerk, Stripe Checkout for course
+                purchases, Cloudinary for media uploads, and Clerk users mirrored into MongoDB through
+                Svix-verified webhooks.
+              </p>
+              <ul class="project-points">
+                <li>Educator dashboard to create and manage courses</li>
+                <li>Stripe payments with webhook-driven enrollment</li>
+                <li>Auth &amp; roles with Clerk, user sync into MongoDB</li>
+              </ul>
+              <div class="project-tags">
+                <span class="tag">React</span><span class="tag">Vite</span><span class="tag">Tailwind</span>
+                <span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">Clerk</span>
+                <span class="tag">Stripe</span><span class="tag">Cloudinary</span>
+              </div>
+              <div class="project-links">
+                <a class="btn btn-primary btn-sm" href="https://lms-frontend-gilt-kappa.vercel.app/" target="_blank" rel="noopener">Live Demo ↗</a>
+                <a class="btn btn-sm" href="https://github.com/sajwansarthak/lms" target="_blank" rel="noopener">Source Code</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PrepPilot -->
+          <article class="project-card reveal" data-category="fullstack ai">
+            <div class="project-banner banner-prep"><span class="mono">PrepPilot</span></div>
+            <div class="project-body">
+              <h3>PrepPilot — AI Interview Prep</h3>
+              <p>
+                An AI-powered interview preparation platform that uses Google Gemini to analyze your resume
+                and a target job description, then generates a personalized interview strategy.
+              </p>
+              <ul class="project-points">
+                <li>Job match score, 10 technical + 8 behavioral questions with sample answers</li>
+                <li>Skill-gap analysis and a 14-day preparation roadmap</li>
+                <li>Secure auth with JWT in HTTP-only cookies and bcrypt</li>
+              </ul>
+              <div class="project-tags">
+                <span class="tag">React</span><span class="tag">Vite</span><span class="tag">Node.js</span>
+                <span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">Gemini</span>
+                <span class="tag">JWT</span>
+              </div>
+              <div class="project-links">
+                <a class="btn btn-primary btn-sm" href="https://resume-geni-azure.vercel.app/login" target="_blank" rel="noopener">Live Demo ↗</a>
+                <a class="btn btn-sm" href="https://github.com/sajwansarthak/resume-geni" target="_blank" rel="noopener">Source Code</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- MERN GitOps -->
+          <article class="project-card reveal" data-category="devops">
+            <div class="project-banner banner-gitops"><span class="mono">git push → k8s</span></div>
+            <div class="project-body">
+              <h3>MERN GitOps on Kubernetes</h3>
+              <p>
+                A three-tier MERN app (React, Express, MongoDB) delivered end-to-end with GitOps — a
+                <code>git push</code> to main ends up running in the cluster with no manual steps.
+              </p>
+              <ul class="project-points">
+                <li>MongoDB as a StatefulSet on a persistent volume; health probes on every tier</li>
+                <li>GitHub Actions builds images, tags by commit SHA, pushes to Docker Hub and bumps Kustomize tags</li>
+                <li>Argo CD auto-sync, prune and self-heal keep the cluster matching Git</li>
+              </ul>
+              <div class="project-tags">
+                <span class="tag">Kubernetes</span><span class="tag">Argo CD</span><span class="tag">GitHub Actions</span>
+                <span class="tag">Docker</span><span class="tag">Kustomize</span><span class="tag">MERN</span>
+              </div>
+              <div class="project-links">
+                <a class="btn btn-primary btn-sm" href="https://github.com/sajwansarthak/mern-cicd" target="_blank" rel="noopener">Source Code ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- EKS 2048 -->
+          <article class="project-card reveal" data-category="devops">
+            <div class="project-banner banner-eks">
+              <img src="https://raw.githubusercontent.com/sajwansarthak/eks-2048-fargate/HEAD/screenshots/2048-game-running.png"
+                   alt="2048 game running on Amazon EKS behind an ALB" loading="lazy"
+                   onerror="this.remove()" />
+              <span class="mono">EKS · Fargate</span>
+            </div>
+            <div class="project-body">
+              <h3>2048 Game on AWS EKS Fargate</h3>
+              <p>
+                A containerized 2048 game running serverlessly on Amazon EKS Fargate — no EC2 worker nodes
+                to provision or patch — exposed to the internet through an ALB Ingress.
+              </p>
+              <ul class="project-points">
+                <li>AWS Load Balancer Controller via Helm provisions an internet-facing ALB (IP target mode)</li>
+                <li>IAM OIDC provider and least-privilege service account for the controller</li>
+                <li>5-replica Deployment on a dedicated Fargate profile</li>
+              </ul>
+              <div class="project-tags">
+                <span class="tag">AWS EKS</span><span class="tag">Fargate</span><span class="tag">ALB</span>
+                <span class="tag">Helm</span><span class="tag">IAM OIDC</span><span class="tag">Kubernetes</span>
+              </div>
+              <div class="project-links">
+                <a class="btn btn-primary btn-sm" href="https://github.com/sajwansarthak/eks-2048-fargate" target="_blank" rel="noopener">Source Code ↗</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- SECTIONS -->
   </main>
 
