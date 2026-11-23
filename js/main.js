@@ -76,3 +76,28 @@ filterBtns.forEach((btn) =>
     });
   })
 );
+
+// ---------- Contact form (mailto, no backend) ----------
+const OWNER_EMAIL = "sarthaksajwan25@gmail.com";
+document.getElementById("contact-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const subject = `Portfolio contact from ${data.get("name")}`;
+  const body = `${data.get("message")}\n\n— ${data.get("name")} (${data.get("email")})`;
+  window.location.href = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+});
+
+// ---------- Copy email ----------
+const copyBtn = document.getElementById("copy-email");
+copyBtn.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(copyBtn.dataset.email);
+    copyBtn.textContent = "Copied ✓";
+  } catch (_) {
+    copyBtn.textContent = copyBtn.dataset.email;
+  }
+  setTimeout(() => (copyBtn.textContent = "Copy email"), 2000);
+});
+
+// ---------- Footer year ----------
+document.getElementById("year").textContent = new Date().getFullYear();

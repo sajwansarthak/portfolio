@@ -320,8 +320,44 @@ open-to-work      <span class="t-ok">Running</span></pre>
       </div>
     </section>
 
-    <!-- SECTIONS -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title reveal">Get in Touch</h2>
+        <p class="section-sub reveal">Open to SDE and DevOps roles — my inbox is always open.</p>
+        <div class="contact-grid">
+          <div class="contact-info reveal">
+            <a class="contact-item" href="mailto:sarthaksajwan25@gmail.com">
+              <span class="contact-label mono">Email</span>
+              <span>sarthaksajwan25@gmail.com</span>
+            </a>
+            <button class="btn btn-sm copy-btn" id="copy-email" data-email="sarthaksajwan25@gmail.com">Copy email</button>
+            <a class="contact-item" href="https://linkedin.com/in/sarthaksajwan" target="_blank" rel="noopener">
+              <span class="contact-label mono">LinkedIn</span>
+              <span>linkedin.com/in/sarthaksajwan</span>
+            </a>
+            <a class="contact-item" href="https://github.com/sajwansarthak" target="_blank" rel="noopener">
+              <span class="contact-label mono">GitHub</span>
+              <span>github.com/sajwansarthak</span>
+            </a>
+          </div>
+          <form class="contact-form reveal" id="contact-form">
+            <label>Name<input type="text" name="name" required placeholder="Your name" /></label>
+            <label>Email<input type="email" name="email" required placeholder="you@example.com" /></label>
+            <label>Message<textarea name="message" rows="5" required placeholder="Hi Sarthak, ..."></textarea></label>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <p class="form-note">Opens your email app with the message pre-filled.</p>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Sarthak Sajwan. Built with HTML, CSS &amp; JavaScript.</p>
+      <a href="#home" class="mono">↑ Back to top</a>
+    </div>
+  </footer>
 
   <script src="js/main.js"></script>
 </body>
