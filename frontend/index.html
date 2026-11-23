@@ -346,7 +346,8 @@ open-to-work      <span class="t-ok">Running</span></pre>
             <label>Email<input type="email" name="email" required placeholder="you@example.com" /></label>
             <label>Message<textarea name="message" rows="5" required placeholder="Hi Sarthak, ..."></textarea></label>
             <button type="submit" class="btn btn-primary">Send Message</button>
-            <p class="form-note">Opens your email app with the message pre-filled.</p>
+            <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
           </form>
         </div>
       </div>
@@ -360,6 +361,7 @@ open-to-work      <span class="t-ok">Running</span></pre>
     </div>
   </footer>
 
+  <script src="js/config.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

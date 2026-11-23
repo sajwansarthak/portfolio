@@ -434,3 +434,10 @@ section:nth-of-type(even) .chips span { background: var(--bg); }
   .js .reveal { opacity: 1; transform: none; transition: none; }
   .cursor { animation: none; }
 }
+
+/* ---------- Contact form status ---------- */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.form-status { font-size: 0.88rem; min-height: 1.3em; }
+.form-status.success { color: #22c55e; }
+.form-status.error { color: #f87171; }
+.contact-form button:disabled { opacity: 0.7; cursor: wait; }

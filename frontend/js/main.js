@@ -77,14 +77,62 @@ filterBtns.forEach((btn) =>
   })
 );
 
-// ---------- Contact form (mailto, no backend) ----------
+// ---------- Contact form (Render API, mailto fallback) ----------
 const OWNER_EMAIL = "sarthaksajwan25@gmail.com";
-document.getElementById("contact-form").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const data = new FormData(e.target);
-  const subject = `Portfolio contact from ${data.get("name")}`;
-  const body = `${data.get("message")}\n\n— ${data.get("name")} (${data.get("email")})`;
+const API_URL = (window.PORTFOLIO_CONFIG && window.PORTFOLIO_CONFIG.API_URL || "").replace(/\/$/, "");
+const contactForm = document.getElementById("contact-form");
+const formStatus = document.getElementById("form-status");
+const submitBtn = contactForm.querySelector("button[type=submit]");
+
+// Render free instances sleep when idle — wake the API as soon as the page loads
+if (API_URL) fetch(`${API_URL}/api/health`).catch(() => {});
+
+function setStatus(text, type) {
+  formStatus.textContent = text;
+  formStatus.className = `form-status ${type || ""}`;
+}
+
+function openMailto(data) {
+  const subject = `Portfolio contact from ${data.name}`;
+  const body = `${data.message}\n\n— ${data.name} (${data.email})`;
   window.location.href = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+contactForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(contactForm));
+  if (!API_URL) return openMailto(data);
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Sending…";
+  setStatus("");
+
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 60000); // allow for cold start
+    const res = await fetch(`${API_URL}/api/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+    const json = await res.json().catch(() => ({}));
+    if (res.ok) {
+      contactForm.reset();
+      setStatus("Thanks! Your message was sent — I'll get back to you soon.", "success");
+    } else if (res.status === 400 || res.status === 429) {
+      setStatus(json.error || "Please check your details and try again.", "error");
+    } else {
+      throw new Error(json.error || "Server error");
+    }
+  } catch (_) {
+    setStatus("Couldn't reach the server — opening your email app instead.", "error");
+    openMailto(data);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Send Message";
+  }
 });
 
 // ---------- Copy email ----------
